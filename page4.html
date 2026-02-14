@@ -23,6 +23,12 @@
         <div class="slide fade">
             <img src="images/img3.jpg" class="slide-img">
         </div>
+        <div class="slide fade">
+            <img src="images/img4.jpg" class="slide-img">
+        </div>
+        <div class="slide fade">
+            <img src="images/img5.jpg" class="slide-img">
+        </div>
 
         <button class="prev" onclick="changeSlide(-1)">❮</button>
         <button class="next" onclick="changeSlide(1)">❯</button>
@@ -33,6 +39,17 @@
 
     <br><br>
 <button onclick="goToQuiz()">Start Love Quiz 💘</button>
+<audio id="bgMusic" autoplay loop>
+    <source src="music/love.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+    // Make sure music plays after user interaction (required by browsers)
+    document.addEventListener("click", function () {
+        const music = document.getElementById("bgMusic");
+        music.play();
+    }, { once: true });
+</script>
 
 </body>
 </html>

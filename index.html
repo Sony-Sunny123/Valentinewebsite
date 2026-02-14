@@ -15,5 +15,18 @@
 
 
     <script src="script.js"></script>
+
+    <audio id="bgMusic" autoplay loop>
+    <source src="music/love.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+    // Make sure music plays after user interaction (required by browsers)
+    document.addEventListener("click", function () {
+        const music = document.getElementById("bgMusic");
+        music.play();
+    }, { once: true });
+</script>
+
 </body>
 </html>
