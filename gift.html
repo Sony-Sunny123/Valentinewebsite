@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Your Gift 💝</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Floating hearts */
+        .heart {
+            position: fixed;
+            bottom: -30px;
+            font-size: 20px;
+            animation: floatUp linear forwards;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        @keyframes floatUp {
+            from { transform: translateY(0); opacity: 1; }
+            to { transform: translateY(-120vh); opacity: 0; }
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            top: -10px;
+            width: 10px;
+            height: 10px;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(720deg); }
+        }
+
+        /* Thank-you message */
+        #thankMessage {
+            display: none;
+            text-align: center;
+            margin-top: 50px;
+            font-size: 24px;
+            color: #ff2e63;
+        }
+
+        /* Gift note styling */
+        #giftNote {
+            font-size: 20px;
+            margin: 20px 0;
+            color: #ff3366;
+        }
+
+        #purchaseBtn {
+            padding: 12px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 12px;
+            background-color: #ff2e63;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #purchaseBtn:hover {
+            background-color: #e6004c;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🎁 Your Gift is Ready!</h1>
+    <h2 id="giftMessage"></h2>
+    <p id="giftNote"></p>
+    <button id="purchaseBtn">Purchase Now 🛒</button>
+
+    <!-- Thank-you message -->
+    <div id="thankMessage">
+        <h1>Thank you for your love! 💖💖</h1>
+        <p>Hope you enjoyed your gift my sweetheart😘💕</p>
+    </div>
+
+<script>
+const gift = localStorage.getItem("selectedGift");
+const giftMessage = document.getElementById("giftMessage");
+const giftNote = document.getElementById("giftNote");
+const purchaseBtn = document.getElementById("purchaseBtn");
+const thankMessage = document.getElementById("thankMessage");
+
+// Show the gift message
+if (gift) {
+    giftMessage.textContent = "You got: " + gift + " 💖";
+
+    if (gift === "Gadget") {
+        giftNote.textContent = "Ohhh you got Gadget! Choose whatever you like, babe 😘💖";
+    } else if (gift === "Chocolate") {
+        giftNote.textContent = "Sweet! You got Chocolate 🍫💕 Enjoy every bite!";
+    } else if (gift === "Dress") {
+        giftNote.textContent = "Yay! You got a Dress 👗💖 Pick something stylish!";
+    }
+} else {
+    giftMessage.textContent = "No gift selected…";
+    purchaseBtn.style.display = "none";
+}
+
+// Function to create floating hearts
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    const hearts = ["💖","💕","💘","💗"];
+    heart.innerHTML = hearts[Math.floor(Math.random()*hearts.length)];
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.animationDuration = (Math.random()*2+4) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+}
+
+// Function to create confetti
+function createConfetti() {
+    const confetti = document.createElement("div");
+    confetti.classList.add("confetti");
+    confetti.style.left = Math.random()*100 + "vw";
+    const colors = ["red","yellow","blue","pink","purple","orange"];
+    confetti.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
+    confetti.style.animationDuration = Math.random()*3+2 + "s";
+    document.body.appendChild(confetti);
+    setTimeout(() => confetti.remove(), 5000);
+}
+
+// Start celebration (hearts + confetti)
+function startCelebration() {
+    for (let i=0;i<50;i++) createHeart();
+    for (let i=0;i<100;i++) createConfetti();
+}
+
+// Purchase button logic
+purchaseBtn.addEventListener("click", function() {
+    let url = "";
+    if (gift === "Gadget") url = "https://www.amazon.com/s?k=gadgets";
+    else if (gift === "Chocolate") url = "https://www.amazon.com/s?k=chocolates";
+    else if (gift === "Dress") url = "https://www.amazon.com/s?k=dress";
+
+    // Open Amazon in new tab
+    window.open(url, "_blank");
+
+    // Show alert to return to page
+    alert("After completing purchase or adding to cart, come back to this page for your surprise 💖");
+
+    // Hide gift note and purchase button
+    giftNote.style.display = "none";
+    purchaseBtn.style.display = "none";
+
+    // Show thank-you message
+    thankMessage.style.display = "block";
+
+    // Start hearts and confetti celebration
+    startCelebration();
+
+    // Scroll to thank you message
+    thankMessage.scrollIntoView({behavior:"smooth"});
+});
+</script>
+
+</body>
+</html>

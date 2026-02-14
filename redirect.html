@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Redirecting…</title>
+    <meta charset="UTF-8">
+
+</head>
+<body>
+    <p>Redirecting to your gift… 💖</p>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const gift = params.get("gift");
+
+        if (gift === "Gadget") {
+            window.location.href = "https://www.amazon.com/s?k=gadgets";
+        } else if (gift === "Chocolate") {
+            window.location.href = "https://www.amazon.com/s?k=chocolates";
+        } else if (gift === "Dress") {
+            window.location.href = "https://www.myntra.com/tshirts";
+        } else {
+            document.body.innerHTML = "<p>No gift selected 😅</p>";
+        }
+    </script>
+</body>
+</html>

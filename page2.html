@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Be My Valentine 💕</title>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+
+</head>
+
+
+<body>
+
+    <h1>Will you be my Valentine? 💖</h1>
+
+    <button id="yesBtn" class="yes-btn">Yes ❤️</button>
+    <button id="noBtn" class="no-btn">No 😜</button>
+
+    <!-- Popup -->
+    <div id="popup" class="popup">
+        <h2>I knew you would say YES 😘 💘</h2>
+        <button onclick="goNext()">Ohhh really? 😘 💘</button>
+    </div>
+
+    <script>
+        const yesBtn = document.getElementById("yesBtn");
+        const noBtn = document.getElementById("noBtn");
+        const popup = document.getElementById("popup");
+
+        // Show No button near Yes when hovering Yes
+        yesBtn.addEventListener("mouseover", function() {
+            const rect = yesBtn.getBoundingClientRect();
+            noBtn.style.display = "block";
+            noBtn.style.left = rect.right + 20 + "px";
+            noBtn.style.top = rect.top + "px";
+        });
+
+        // Make No run away
+        noBtn.addEventListener("mouseover", function() {
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 50);
+            noBtn.style.left = x + "px";
+            noBtn.style.top = y + "px";
+        });
+
+        // YES clicked → show popup + crackers
+        yesBtn.addEventListener("click", function() {
+            popup.style.display = "block";
+            startCrackers();
+        });
+
+        function startCrackers() {
+            for (let i = 0; i < 40; i++) {
+                const spark = document.createElement("div");
+                spark.classList.add("spark");
+                spark.innerHTML = "💖";
+
+                spark.style.left = window.innerWidth / 2 + "px";
+                spark.style.top = window.innerHeight / 2 + "px";
+
+                spark.style.setProperty('--x', (Math.random() * 500 - 250) + "px");
+                spark.style.setProperty('--y', (Math.random() * 500 - 250) + "px");
+
+                document.body.appendChild(spark);
+
+                setTimeout(() => {
+                    spark.remove();
+                }, 1200);
+            }
+        }
+
+        function goNext() {
+            window.location.href = "page3.html";
+        }
+        
+    </script>
+<script src="script.js"></script>
+</body>
+</html>
